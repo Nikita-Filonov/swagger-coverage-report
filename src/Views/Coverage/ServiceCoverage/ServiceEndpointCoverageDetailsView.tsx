@@ -6,9 +6,9 @@ import { HTTPMethodLabel } from '../../../Components/Labels/Http/HTTPMethodLabel
 import { CoveredIcons } from '../../../Components/Icons/Coverage/CoveredIcons';
 import { TotalCoverageIcons } from '../../../Components/Icons/Coverage/TotalCoverageIcons';
 import { BaseTabs } from '../../../Components/Tabs/BaseTabs';
-import { ServiceEndpointStatusCodeCoverageView } from './ServiceEndpointStatusCodeCoverageView';
 import { CoverageHistoryChartView } from '../../History/CoverageHistoryChartView';
 import { BoxView } from '../../../Components/Views/BoxView';
+import { ServiceEndpointStatusCodeCoverageTable } from '../../../Components/Tables/Coverage/ServiceCoverage/ServiceEndpointStatusCodeCoverageTable';
 
 type Props = {
   endpoint: ServiceEndpointCoverage;
@@ -41,7 +41,7 @@ export const ServiceEndpointCoverageDetailsView: FC<Props> = ({ endpoint }) => {
         tabs={[
           {
             label: 'Coverage',
-            content: <ServiceEndpointStatusCodeCoverageView codes={endpoint.statusCodes} />
+            content: <ServiceEndpointStatusCodeCoverageTable codes={endpoint.statusCodes} />
           },
           {
             label: 'History',
