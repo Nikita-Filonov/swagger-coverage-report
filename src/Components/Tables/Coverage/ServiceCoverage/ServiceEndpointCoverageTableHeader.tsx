@@ -2,14 +2,14 @@ import { BaseTableHeader } from '../../BaseTableHeader';
 import { FC } from 'react';
 import { OrderDirection } from '../../../../Services/Tables/Sorting';
 
-type LogicalServiceCoveragesTableHeaderProps = {
+type Props = {
   orderBy: string | null;
   setOrderBy: (orderBy: string | null) => void;
   orderDirection: OrderDirection;
   setOrderDirection: (direction: OrderDirection) => void;
 };
 
-export const ServiceEndpointCoverageTableHeader: FC<LogicalServiceCoveragesTableHeaderProps> = (props) => {
+export const ServiceEndpointCoverageTableHeader: FC<Props> = (props) => {
   const { orderBy, setOrderBy, orderDirection, setOrderDirection } = props;
 
   return (
