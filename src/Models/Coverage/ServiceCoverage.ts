@@ -4,6 +4,7 @@ import { HTTPMethod } from '../Http';
 export interface ServiceEndpointStatusCodeCoverage {
   value: number;
   covered: boolean;
+  totalCases: number;
   description: string | null;
 }
 
