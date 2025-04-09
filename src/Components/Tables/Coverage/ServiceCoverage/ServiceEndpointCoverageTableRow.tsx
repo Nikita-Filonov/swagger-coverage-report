@@ -2,10 +2,10 @@ import { BaseTableRow } from '../../BaseTableRow';
 import { FC } from 'react';
 import { CoverageProgress } from '../../../Progress/Coverage/CoverageProgress';
 import { ServiceEndpointCoverage } from '../../../../Models/Coverage/ServiceCoverage';
-import { CoveredIcons } from '../../../Icons/Coverage/CoveredIcons';
 import { HTTPMethodLabel } from '../../../Labels/Http/HTTPMethodLabel';
 import IconButton from '@mui/material/IconButton';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
+import { CoverageIcons } from '../../../Icons/Coverage/CoverageIcons';
 
 type Props = {
   endpoint: ServiceEndpointCoverage;
@@ -22,7 +22,7 @@ export const ServiceEndpointCoverageTableRow: FC<Props> = (props) => {
       cells={[
         { value: <HTTPMethodLabel method={endpoint.method} /> },
         { value: endpoint.name },
-        { value: <CoveredIcons covered={endpoint.covered} /> },
+        { value: <CoverageIcons coverage={endpoint.coverage} /> },
         { value: endpoint.totalCases },
         { value: <CoverageProgress value={endpoint.totalCoverage || 0} /> },
         {
