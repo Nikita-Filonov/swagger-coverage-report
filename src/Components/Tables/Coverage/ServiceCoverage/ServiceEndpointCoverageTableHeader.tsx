@@ -17,7 +17,7 @@ export const ServiceEndpointCoverageTableHeader: FC<Props> = (props) => {
       cells={[
         { value: 'Method', orderKey: 'method' },
         { value: 'Endpoint', orderKey: 'name' },
-        { value: 'Covered?', orderKey: 'covered' },
+        { value: 'Covered?', orderKey: 'coverage' },
         { value: 'Total cases', orderKey: 'totalCases' },
         { value: 'Total coverage', orderKey: 'totalCoverage' },
         { value: undefined, align: 'right' }
