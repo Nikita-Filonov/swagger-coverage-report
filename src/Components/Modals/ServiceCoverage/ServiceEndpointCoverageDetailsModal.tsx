@@ -13,7 +13,7 @@ export const ServiceEndpointCoverageDetailsModal: FC<Props> = (props) => {
   const { modal, setModal, endpoint } = props;
 
   return (
-    <BaseModal title={'Endpoint coverage details'} modal={modal} setModal={setModal}>
+    <BaseModal title={'Endpoint coverage details'} modal={modal} setModal={setModal} maxWidth={'md'}>
       <ServiceEndpointCoverageDetailsView endpoint={endpoint} />
     </BaseModal>
   );
