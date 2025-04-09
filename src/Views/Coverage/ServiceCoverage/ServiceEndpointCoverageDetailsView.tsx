@@ -3,12 +3,12 @@ import { FC } from 'react';
 import { WidgetInfoRowsView } from '../../../Components/Views/WidgetInfoRowsView';
 import { BaseInfoRowView } from '../../../Components/Views/BaseInfoRowView';
 import { HTTPMethodLabel } from '../../../Components/Labels/Http/HTTPMethodLabel';
-import { CoveredIcons } from '../../../Components/Icons/Coverage/CoveredIcons';
 import { TotalCoverageIcons } from '../../../Components/Icons/Coverage/TotalCoverageIcons';
 import { BaseTabs } from '../../../Components/Tabs/BaseTabs';
 import { CoverageHistoryChartView } from '../../History/CoverageHistoryChartView';
 import { BoxView } from '../../../Components/Views/BoxView';
-import { ServiceEndpointStatusCodeCoverageTable } from '../../../Components/Tables/Coverage/ServiceCoverage/ServiceEndpointStatusCodeCoverageTable';
+import { ServiceEndpointCoverageView } from './ServiceEndpointCoverageView';
+import { CoverageIcons } from '../../../Components/Icons/Coverage/CoverageIcons';
 
 type Props = {
   endpoint: ServiceEndpointCoverage;
@@ -25,8 +25,13 @@ export const ServiceEndpointCoverageDetailsView: FC<Props> = ({ endpoint }) => {
         />
         <BaseInfoRowView name={'Endpoint'} value={endpoint.name} />
         <BaseInfoRowView
-          name={'Covered'}
-          value={<CoveredIcons sx={{ ml: 1 }} covered={endpoint.covered} />}
+          name={'Covered?'}
+          value={<CoverageIcons sx={{ ml: 1 }} coverage={endpoint.coverage} />}
+          allowCopy={false}
+        />
+        <BaseInfoRowView
+          name={'Request covered?'}
+          value={<CoverageIcons sx={{ ml: 1 }} coverage={endpoint.requestCoverage} />}
           allowCopy={false}
         />
         <BaseInfoRowView name={'Total cases'} value={endpoint.totalCases} />
@@ -41,7 +46,7 @@ export const ServiceEndpointCoverageDetailsView: FC<Props> = ({ endpoint }) => {
         tabs={[
           {
             label: 'Coverage',
-            content: <ServiceEndpointStatusCodeCoverageTable codes={endpoint.statusCodes} />
+            content: <ServiceEndpointCoverageView endpoint={endpoint} />
           },
           {
             label: 'History',
