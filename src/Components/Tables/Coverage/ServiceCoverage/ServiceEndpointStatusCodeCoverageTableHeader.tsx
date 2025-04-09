@@ -16,7 +16,8 @@ export const ServiceEndpointStatusCodeCoverageTableHeader: FC<Props> = (props) =
     <BaseTableHeader
       cells={[
         { value: 'Status code', orderKey: 'value' },
-        { value: 'Covered?', orderKey: 'covered' },
+        { value: 'Response covered?', orderKey: 'responseCoverage' },
+        { value: 'Status code covered?', orderKey: 'statusCodeCoverage' },
         { value: 'Total cases', orderKey: 'totalCases' },
         { value: 'Description', orderKey: 'description' }
       ]}
