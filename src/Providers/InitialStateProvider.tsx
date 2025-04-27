@@ -1,7 +1,47 @@
-import React, { Dispatch, FC, PropsWithChildren, SetStateAction, useContext, useEffect, useState } from 'react';
-import { DEFAULT_SERVICE_CONFIG, DEFAULT_SERVICE_COVERAGE, InitialState, loadInitialState } from '../State/Controllers';
+import React, {
+  createContext,
+  Dispatch,
+  FC,
+  PropsWithChildren,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState
+} from 'react';
 import { ServiceCoverage } from '../Models/Coverage/ServiceCoverage';
 import { ServiceConfig } from '../Models/Config/Config';
+import { InitialState } from '../Models/InitialState';
+
+const DEFAULT_SERVICE_CONFIG: ServiceConfig = {
+  key: '',
+  name: '',
+  repository: ''
+};
+
+const DEFAULT_SERVICE_COVERAGE: ServiceCoverage = {
+  endpoints: [],
+  totalCoverage: 0,
+  totalCoverageHistory: []
+};
+
+const DEFAULT_INITIAL_STATE: InitialState = {
+  config: { services: [] },
+  createdAt: '',
+  servicesCoverage: {}
+};
+
+const loadInitialState = (): InitialState => {
+  const stateElement = document.getElementById('state');
+  if (stateElement === null) {
+    return DEFAULT_INITIAL_STATE;
+  }
+
+  try {
+    return JSON.parse(stateElement.textContent || '');
+  } catch {
+    return DEFAULT_INITIAL_STATE;
+  }
+};
 
 export type InitialStateContextProps = {
   service: ServiceConfig;
@@ -11,7 +51,7 @@ export type InitialStateContextProps = {
   serviceCoverage: ServiceCoverage;
 };
 
-const InitialStateContext = React.createContext<InitialStateContextProps | null>(null);
+const InitialStateContext = createContext<InitialStateContextProps | null>(null);
 
 const InitialStateProvider: FC<PropsWithChildren> = ({ children }) => {
   const [state, setState] = useState<InitialState>(loadInitialState());
