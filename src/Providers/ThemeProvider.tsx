@@ -1,5 +1,6 @@
-import React, { FC, PropsWithChildren, useContext, useState } from 'react';
+import { createContext, FC, PropsWithChildren, useContext, useState } from 'react';
 import { createTheme, CssBaseline, ThemeProvider as LibThemeProvider } from '@mui/material';
+import { loadFromStorage, saveIntoStorage, StorageKey } from '../Services/Storage';
 import { ThemeMode } from '../Models/Core/Theme';
 
 const darkTheme = createTheme({
@@ -17,12 +18,18 @@ export type ThemeContextProps = {
   onThemeMode: () => void;
 };
 
-const ThemeContext = React.createContext<ThemeContextProps | null>(null);
+const ThemeContext = createContext<ThemeContextProps | null>(null);
 
 const ThemeProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [themeMode, setThemeMode] = useState<ThemeMode>(ThemeMode.Light);
+  const [themeMode, setThemeMode] = useState<ThemeMode>(
+    loadFromStorage({ key: StorageKey.ThemeMode, fallback: ThemeMode.Light })
+  );
 
-  const onThemeMode = () => setThemeMode(themeMode === ThemeMode.Light ? ThemeMode.Dark : ThemeMode.Light);
+  const onThemeMode = () => {
+    const mode = themeMode === ThemeMode.Light ? ThemeMode.Dark : ThemeMode.Light;
+    setThemeMode(mode);
+    saveIntoStorage({ key: StorageKey.ThemeMode, data: mode });
+  };
 
   return (
     <ThemeContext.Provider value={{ themeMode, onThemeMode }}>
