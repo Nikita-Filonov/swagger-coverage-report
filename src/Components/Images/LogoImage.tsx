@@ -8,6 +8,5 @@ type LogoImageProps = {
 };
 
 export const LogoImage: FC<LogoImageProps> = ({ width, height }) => {
-  console.log(SettingsManager.getStaticFileUrl('logo.png'));
   return <BaseImage src={SettingsManager.getStaticFileUrl('logo.png')} width={width} height={height} />;
 };
