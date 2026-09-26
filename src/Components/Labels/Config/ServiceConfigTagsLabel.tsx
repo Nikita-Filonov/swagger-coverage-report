@@ -10,7 +10,9 @@ type Props = {
 export const ServiceConfigTagsLabel: FC<Props> = ({ service }) => {
   return (
     <BaseLabelsView>
-      {service.tags?.map((tag, index) => <ServiceConfigTagLabel key={index} tag={tag} />)}
+      {service.tags?.map((tag, index) => (
+        <ServiceConfigTagLabel key={index} tag={tag} />
+      ))}
     </BaseLabelsView>
   );
 };

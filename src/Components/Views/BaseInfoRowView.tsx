@@ -26,7 +26,7 @@ export const BaseInfoRowView: FC<BaseInfoRowViewProps> = (props) => {
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', ...containerSx }}>
-      <Typography noWrap={noWrap} sx={{ display: 'flex', alignItems: 'center' }}>
+      <Typography component="div" noWrap={noWrap} sx={{ display: 'flex', alignItems: 'center' }}>
         {name}: {component ? component : internalValue} {icon}
       </Typography>
       {Boolean(value) && allowCopy && (

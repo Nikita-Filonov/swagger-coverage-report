@@ -1,16 +1,16 @@
-import { Grid2 } from '@mui/material';
+import { Grid } from '@mui/material';
 import { ServiceCoverageHistoryView } from './ServiceCoverageHistoryView';
 import { ServiceCoverageView } from './ServiceCoverageView';
 
 export const ServiceView = () => {
   return (
-    <Grid2 container spacing={2}>
-      <Grid2 size={{ xs: 12, md: 6 }}>
+    <Grid container spacing={2}>
+      <Grid size={{ xs: 12, md: 6 }}>
         <ServiceCoverageHistoryView />
-      </Grid2>
-      <Grid2 size={{ xs: 12, md: 6 }}>
+      </Grid>
+      <Grid size={{ xs: 12, md: 6 }}>
         <ServiceCoverageView />
-      </Grid2>
-    </Grid2>
+      </Grid>
+    </Grid>
   );
 };

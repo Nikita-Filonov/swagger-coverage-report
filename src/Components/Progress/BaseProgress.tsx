@@ -1,15 +1,10 @@
-import * as React from 'react';
 import { FC } from 'react';
 import LinearProgress from '@mui/material/LinearProgress';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { OverridableStringUnion } from '@mui/types';
-import { LinearProgressPropsColorOverrides } from '@mui/material/LinearProgress/LinearProgress';
+import { LinearProgressProps } from '@mui/material/LinearProgress';
 
-export type ProgressColor = OverridableStringUnion<
-  'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning' | 'inherit',
-  LinearProgressPropsColorOverrides
->;
+export type ProgressColor = NonNullable<LinearProgressProps['color']>;
 
 type BaseProgressProps = {
   value: number;

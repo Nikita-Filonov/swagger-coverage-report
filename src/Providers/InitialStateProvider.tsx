@@ -1,13 +1,4 @@
-import React, {
-  createContext,
-  Dispatch,
-  FC,
-  PropsWithChildren,
-  SetStateAction,
-  useContext,
-  useEffect,
-  useState
-} from 'react';
+import { createContext, Dispatch, FC, PropsWithChildren, SetStateAction, useContext, useState } from 'react';
 import { ServiceCoverage } from '../Models/Coverage/ServiceCoverage';
 import { ServiceConfig } from '../Models/Config/Config';
 import { InitialState } from '../Models/InitialState';
@@ -30,7 +21,7 @@ const DEFAULT_INITIAL_STATE: InitialState = {
   servicesCoverage: {}
 };
 
-const loadInitialState = (): InitialState => {
+export const loadInitialState = (): InitialState => {
   const stateElement = document.getElementById('state');
   if (stateElement === null) {
     return DEFAULT_INITIAL_STATE;
@@ -54,26 +45,12 @@ export type InitialStateContextProps = {
 const InitialStateContext = createContext<InitialStateContextProps | null>(null);
 
 const InitialStateProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [state, setState] = useState<InitialState>(loadInitialState());
-  const [service, setService] = useState<ServiceConfig>(DEFAULT_SERVICE_CONFIG);
-
-  useEffect(() => {
-    loadState();
-  }, []);
-
-  const loadState = () => {
-    const initialState = loadInitialState();
-    for (const service of initialState.config.services || []) {
-      const serviceCoverage = initialState.servicesCoverage[service.key];
-
-      if (serviceCoverage.totalCoverage && serviceCoverage.totalCoverage > 0) {
-        setService(service);
-        break;
-      }
-    }
-
-    setState(initialState);
-  };
+  const [state] = useState<InitialState>(loadInitialState);
+  const [service, setService] = useState<ServiceConfig>(
+    () =>
+      (state.config.services || []).find((service) => state.servicesCoverage[service.key]?.totalCoverage > 0) ||
+      DEFAULT_SERVICE_CONFIG
+  );
 
   return (
     <InitialStateContext.Provider

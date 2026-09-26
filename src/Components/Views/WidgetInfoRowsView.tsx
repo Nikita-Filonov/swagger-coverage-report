@@ -1,25 +1,25 @@
-import { Grid2, SxProps, Theme } from '@mui/material';
+import { Grid, SxProps, Theme } from '@mui/material';
 import { Children, FC, ReactNode } from 'react';
 
-type WidgetInfoRowsViewProps = {
+type Props = {
   children: ReactNode[] | ReactNode;
   containerSx?: SxProps<Theme>;
 };
 
-export const WidgetInfoRowsView: FC<WidgetInfoRowsViewProps> = (props) => {
+export const WidgetInfoRowsView: FC<Props> = (props) => {
   const { children, containerSx } = props;
 
   return (
-    <Grid2 container spacing={1} sx={{ mt: 2, ...containerSx }}>
+    <Grid container spacing={1} sx={{ mt: 2, ...containerSx }}>
       {Children.map(
         children,
         (child, index) =>
           child && (
-            <Grid2 key={index} size={{ xs: 12 }}>
+            <Grid key={index} size={{ xs: 12 }}>
               {child}
-            </Grid2>
+            </Grid>
           )
       )}
-    </Grid2>
+    </Grid>
   );
 };
