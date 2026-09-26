@@ -9,11 +9,14 @@ type Props = {
 
 export const BaseBarChartLegend: FC<Props> = ({ yAxis }) => {
   return (
-    <Stack spacing={2} direction={'row'} sx={{ flexWrap: 'wrap', justifyContent: 'center' }}>
+    <Stack
+      spacing={2}
+      direction={'row'}
+      sx={{ flexWrap: 'wrap', justifyContent: 'center', transform: 'translateY(-4px)' }}>
       {yAxis.map((axis, index) => (
         <Box key={index} sx={{ display: 'flex', alignItems: 'center' }}>
-          <Box sx={{ width: 12, height: 12, bgcolor: axis.color, borderRadius: '2px', mr: 1 }} />
-          <Typography variant="body2">{axis.label}</Typography>
+          <Box sx={{ width: 20, height: 20, bgcolor: axis.color, borderRadius: '2px', mr: 1 }} />
+          <Typography variant="body1">{axis.label}</Typography>
         </Box>
       ))}
     </Stack>

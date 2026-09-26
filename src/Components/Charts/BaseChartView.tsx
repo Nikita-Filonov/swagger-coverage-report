@@ -10,13 +10,13 @@ export type BaseChartViewProps = {
 
 export const BaseChartView: FC<BaseChartViewProps> = ({ title, children, childrenSx, containerSx }) => {
   return (
-    <Paper sx={{ p: 2, mt: 3, ...containerSx }}>
+    <Paper sx={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0, p: 2, mt: 3, ...containerSx }}>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Typography sx={{ mr: 2 }} variant={'h6'}>
           {title}
         </Typography>
       </Box>
-      <Box sx={{ ...childrenSx }}>{children}</Box>
+      <Box sx={{ flex: 1, mt: 2, ...childrenSx }}>{children}</Box>
     </Paper>
   );
 };

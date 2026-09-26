@@ -12,6 +12,9 @@ import { Box } from '@mui/material';
 import { ComponentProps, Fragment } from 'react';
 import { BaseBarChartLegend } from './BaseBarChartLegend';
 
+// Preserve the 168px drawing area, with 8px for the top tick label and 32px for the x-axis.
+const CHART_HEIGHT = 208;
+
 export interface BarChartYAxis {
   data?: (null | number)[];
   label: string;
@@ -36,10 +39,13 @@ type BaseLineChartProps<T> = {
 export const BaseBarChart = <T,>({ xAxis, yAxis, dataset }: BaseLineChartProps<T>) => {
   return (
     <Fragment>
-      <Box sx={{ height: 300 }}>
+      <BaseBarChartLegend yAxis={yAxis} />
+      <Box sx={{ height: CHART_HEIGHT }}>
         <ChartsContainer
-          xAxis={xAxis}
-          margin={{ top: 20, left: 35, right: 20, bottom: 35 }}
+          height={CHART_HEIGHT}
+          xAxis={xAxis.map((axis) => ({ ...axis, height: 32 }))}
+          yAxis={[{ width: 50 }]}
+          margin={{ top: 8, left: 0, right: 50, bottom: 0 }}
           series={yAxis.map((axis) => ({ ...axis, type: 'bar' }))}
           dataset={dataset}>
           <BarPlot />
@@ -50,7 +56,6 @@ export const BaseBarChart = <T,>({ xAxis, yAxis, dataset }: BaseLineChartProps<T
           <ChartsAxisHighlight x={'band'} />
         </ChartsContainer>
       </Box>
-      <BaseBarChartLegend yAxis={yAxis} />
     </Fragment>
   );
 };

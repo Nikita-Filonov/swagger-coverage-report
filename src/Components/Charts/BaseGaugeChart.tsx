@@ -17,7 +17,6 @@ export const BaseGaugeChart: FC<BaseGaugeChartProps> = (props) => {
   return (
     <Gauge
       sx={(theme) => ({
-        mt: 3,
         [`& .${gaugeClasses.valueText}`]: {
           fontSize: fontSize || 20
         },

@@ -23,6 +23,26 @@ describe('charts', () => {
     expect(screen.getByText('Coverage')).toBeInTheDocument();
   });
 
+  it.each([{ data: [] }, { data: [25, 75] }])(
+    'preserves the drawing area below the legend for data $data',
+    ({ data }) => {
+      const { container } = render(
+        <BaseBarChart
+          xAxis={[{ data: data.map((_, index) => index), scaleType: 'band' }]}
+          yAxis={[{ data, label: 'Coverage' }]}
+        />
+      );
+      const legend = container.firstElementChild!;
+      const plot = legend.nextElementSibling!;
+      expect(legend).toContainElement(screen.getByText('Coverage'));
+      expect(plot).toHaveStyle({ height: '208px' });
+      const verticalAxis = plot.querySelector('.MuiChartsAxis-directionY .MuiChartsAxis-line')!;
+      expect(verticalAxis).toBeInTheDocument();
+      expect(Number(verticalAxis.getAttribute('y1'))).toBeGreaterThanOrEqual(8);
+      expect(Math.abs(Number(verticalAxis.getAttribute('y2')) - Number(verticalAxis.getAttribute('y1')))).toBe(168);
+    }
+  );
+
   it.each(['error', 'warning', 'success'] as const)('renders a %s gauge with the current percent', (color) => {
     render(<BaseGaugeChart value={50} color={color} height={200} maxValue={100} />);
     expect(screen.getByText('50% / 100%')).toBeInTheDocument();
@@ -31,5 +51,13 @@ describe('charts', () => {
   it('allows a custom gauge text size', () => {
     render(<BaseGaugeChart value={90} color="success" height={200} maxValue={100} fontSize={24} />);
     expect(screen.getByText('90% / 100%')).toBeInTheDocument();
+  });
+
+  it('does not add vertical margins that offset the gauge inside a centered container', () => {
+    const { container } = render(<BaseGaugeChart value={65} color="success" height={200} maxValue={100} />);
+    const gauge = container.querySelector('.MuiGauge-root')!;
+    const styles = getComputedStyle(gauge);
+    expect(styles.marginTop).toMatch(/^(0(px)?|)$/);
+    expect(styles.marginBottom).toMatch(/^(0(px)?|)$/);
   });
 });
